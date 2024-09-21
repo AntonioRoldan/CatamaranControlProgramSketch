@@ -7,15 +7,14 @@ const catavanControlMain = () => {
     var configurations: {configurationName: String, mechanicalMovementsSequence: String[]}[] = [] //Array of configuration objects 
     while(true){
         //User inputs based finite state machine we specify a case for each configuration plus an idle state for when the program does nothing don't forget the default configuration for which we use the unsetAllMechanicalMovementsToGetToDefaultConfiguration function
-    }
-    
+    }    
 }
 
 const unsetAllMechanicalMovementsToGetToDefaultConfiguration = () => {
     //Undo all movements as we iterate through mechanical movements and use another switch 
 }
 
-const moveToAGivenConfiguration = (configuration: {configurationName: String, mechanicalMovementsSequenceInOrder: String[]}, alreadySetMechanicalMovements: {AIsAlreadySet: boolean, BIsAlreadySet: boolean, CIsAlreadySet: boolean, DIsAlreadySet: boolean, EIsAlreadySet: boolean} ) => {
+const setAGivenConfiguration = (configuration: {configurationName: String, mechanicalMovementsSequenceInOrder: String[]}, alreadySetMechanicalMovements: {AIsAlreadySet: boolean, BIsAlreadySet: boolean, CIsAlreadySet: boolean, DIsAlreadySet: boolean, EIsAlreadySet: boolean} ) => {
     setMechanicalMovementsInSequenceForAGivenConfiguration(configuration.mechanicalMovementsSequenceInOrder)
 }
 
@@ -26,11 +25,11 @@ const setMechanicalMovementsInSequenceForAGivenConfiguration = (mechanicalMoveme
         if(checkIfAGivenMechanicalMovementIsSet(mechanicalMovementName)){ //If this movement has been made already we skip it 
             continue 
         }
-        setAGivenMEchanicalMovement(mechanicalMovementName)
+        setAGivenMechanicalMovement(mechanicalMovementName)
     }
 }
 
-const setAGivenMEchanicalMovement = (mechanicalMovementName: String) => {
+const setAGivenMechanicalMovement = (mechanicalMovementName: String) => {
     switch(mechanicalMovementName) {
         case "A": {
             setMechanicalMovementA()
@@ -65,7 +64,7 @@ const checkIfTheAMechanicalMovementIsAlreadySet = (): boolean => { //It reads fr
     return true 
 }
 
-const checkIfTheBMechanicalMovementIsAlreadySet = (): boolean => { //It reads from sensors to know if mechanical movement A has already been made 
+const checkIfTheBMechanicalMovementIsAlreadySet = (): boolean => { //It reads from sensors to know if mechanical movement B has already been made 
     return true 
 }
 
