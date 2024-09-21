@@ -1,7 +1,6 @@
 
 const catavanControlMain = () => {
     //alreadySetMovements: movements already having been activated 
-    var alreadySetMovements: {AIsAlreadySet: boolean, BIsAlreadySet: boolean, CIsAlreadySet: boolean, DIsAlreadySet: boolean, EIsAlreadySet: boolean} = {AIsAlreadySet: false, BIsAlreadySet: false, CIsAlreadySet: false, DIsAlreadySet: false, EIsAlreadySet: false}
     var configuration: {configurationName: String, mechanicalMovementsSequenceInOrder: String[]}= {configurationName: "", mechanicalMovementsSequenceInOrder: []} //Note we should make this a struct in C 
     var mechanicalMovements: String[] = ["A", "B", "C", "D", "E"]
     var configurations: {configurationName: String, mechanicalMovementsSequence: String[]}[] = [] //Array of configuration objects 
@@ -14,13 +13,14 @@ const unsetAllMechanicalMovementsToGetToDefaultConfiguration = () => {
     //Undo all movements as we iterate through mechanical movements and use another switch 
 }
 
-const setAGivenConfiguration = (configuration: {configurationName: String, mechanicalMovementsSequenceInOrder: String[]}, alreadySetMechanicalMovements: {AIsAlreadySet: boolean, BIsAlreadySet: boolean, CIsAlreadySet: boolean, DIsAlreadySet: boolean, EIsAlreadySet: boolean} ) => {
+const setAGivenConfiguration = (configuration: {configurationName: String, mechanicalMovementsSequenceInOrder: String[]}) => {
     setMechanicalMovementsInSequenceForAGivenConfiguration(configuration.mechanicalMovementsSequenceInOrder)
 }
 
 const setMechanicalMovementsInSequenceForAGivenConfiguration = (mechanicalMovementsSequenceInOrder: String[]) => {
     var mechanicalMovementName: String = "A"
     for(var i = 0; i < mechanicalMovementsSequenceInOrder.length; i++){
+        //We iterate through each mechanical movement belonging to a given configuration object and execute them sequentially unless it is already set from a previous configuration setup
         mechanicalMovementName = mechanicalMovementsSequenceInOrder[i]
         if(checkIfAGivenMechanicalMovementIsSet(mechanicalMovementName)){ //If this movement has been made already we skip it 
             continue 
