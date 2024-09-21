@@ -16,7 +16,6 @@ const unsetAllMechanicalMovementsToGetToDefaultConfiguration = () => {
 }
 
 const moveToAGivenConfiguration = (configuration: {configurationName: String, mechanicalMovementsSequenceInOrder: String[]}, alreadySetMechanicalMovements: {AIsAlreadySet: boolean, BIsAlreadySet: boolean, CIsAlreadySet: boolean, DIsAlreadySet: boolean, EIsAlreadySet: boolean} ) => {
-    checkWhichMechanicalMovementsFromThisConfigurationHaveAlreadyBeenSetFromAPreviouslySetConfiguration(configuration, alreadySetMechanicalMovements)
     setMechanicalMovementsInSequenceForAGivenConfiguration(configuration.mechanicalMovementsSequenceInOrder)
 }
 
@@ -24,6 +23,9 @@ const setMechanicalMovementsInSequenceForAGivenConfiguration = (mechanicalMoveme
     var mechanicalMovementName: String = "A"
     for(var i = 0; i < mechanicalMovementsSequenceInOrder.length; i++){
         mechanicalMovementName = mechanicalMovementsSequenceInOrder[i]
+        if(checkIfAGivenMechanicalMovementIsSet(mechanicalMovementName)){ //If this movement has been made already we skip it 
+            continue 
+        }
         setAGivenMEchanicalMovement(mechanicalMovementName)
     }
 }
@@ -41,26 +43,16 @@ const setAGivenMEchanicalMovement = (mechanicalMovementName: String) => {
     }
 }
 
-const checkWhichMechanicalMovementsFromThisConfigurationHaveAlreadyBeenSetFromAPreviouslySetConfiguration = (configuration: {configurationName: String, mechanicalMovementsSequenceInOrder: String[]}, alreadySetMechanicalMovements:  {AIsAlreadySet: boolean, BIsAlreadySet: boolean, CIsAlreadySet: boolean, DIsAlreadySet: boolean, EIsAlreadySet: boolean}) => {
-    //This function does what the name shows in order not to repeat the movements for this configuration
-    var mechanicalMovementName: String = ""
-    for(var i = 0; i < configuration.mechanicalMovementsSequenceInOrder.length; i++){
-        mechanicalMovementName = configuration.mechanicalMovementsSequenceInOrder[i]
-        checkIfAGivenMechanicalMovementIsSet(mechanicalMovementName, alreadySetMechanicalMovements)
-    }
-}
 
-const checkIfAGivenMechanicalMovementIsSet = (mechanicalMovementName: String, alreadySetMovements: {AIsAlreadySet: boolean, BIsAlreadySet: boolean, CIsAlreadySet: boolean, DIsAlreadySet: boolean, EIsAlreadySet: boolean} ) => {
+const checkIfAGivenMechanicalMovementIsSet = (mechanicalMovementName: String ) => {
     var mechanicalMovementGivenAsParameterIsAlreadySet: boolean = false 
     switch((mechanicalMovementName)) {
         case "A": {
             //
-            alreadySetMovements.AIsAlreadySet = checkIfTheAMechanicalMovementIsAlreadySet()
-            break
+            return checkIfTheAMechanicalMovementIsAlreadySet()
         }
         case "B": {
-            alreadySetMovements.BIsAlreadySet = checkIfTheBMechanicalMovementIsAlreadySet()
-            break
+            return checkIfTheBMechanicalMovementIsAlreadySet()
         } 
         //case "C": And so it repeats on and on for each movement...
         default: {
