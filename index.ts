@@ -22,9 +22,14 @@ const setMechanicalMovementsInSequenceForAGivenConfiguration = (mechanicalMoveme
     for(var i = 0; i < mechanicalMovementsSequenceInOrder.length; i++){
         //We iterate through each mechanical movement belonging to a given configuration object and execute them sequentially unless it is already set from a previous configuration setup
         mechanicalMovementName = mechanicalMovementsSequenceInOrder[i]
-        if(checkIfAGivenMechanicalMovementIsSet(mechanicalMovementName)){ //If this movement has been made already we skip it 
-            continue 
-        }
+        // if(checkIfAGivenMechanicalMovementIsSet(mechanicalMovementName)){ //If this movement has been made already we skip it 
+        //     continue 
+        // } NOTE: We don't need this if statement with its respective function because reading from the sensor in the while loop is enough for the non repeating functionality to be achieved because if the sensor is already sending data to our program we know the movement is made and automatically the movement won't be made 
+        // we can just read from the sensor and use this reading as the condition of a while loop add the commented code below inside each case wiithin the setAGivenMechanicalMovement function instead 
+        //while(!readDesiredDataFromSensorForTheAGivenMovement()) { it can be one of two sensors depending on the movement we want to make we read from the sensor that activates when the movement has been finished
+        //  writeOutputForMovementA
+        //} 
+        // stop writingOutputForMovementA
         setAGivenMechanicalMovement(mechanicalMovementName)
     }
 }
@@ -43,12 +48,12 @@ const setAGivenMechanicalMovement = (mechanicalMovementName: String) => {
 }
 
 
-const checkIfAGivenMechanicalMovementIsSet = (mechanicalMovementName: String ) => {
+const checkIfAGivenMechanicalMovementIsSet = (mechanicalMovementName: String , ) => {
     var mechanicalMovementGivenAsParameterIsAlreadySet: boolean = false 
     switch((mechanicalMovementName)) {
         case "A": {
             //
-            return checkIfTheAMechanicalMovementIsAlreadySet()
+            return checkIfTheAMechanicalMovementIsAlreadySet() //Read sensor to know if this movement is already set 
         }
         case "B": {
             return checkIfTheBMechanicalMovementIsAlreadySet()
